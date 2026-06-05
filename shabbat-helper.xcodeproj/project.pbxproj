@@ -3,313 +3,280 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		1813F28226FF5A060059DD89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813F28126FF5A060059DD89 /* AppDelegate.swift */; };
-		1813F28426FF5A060059DD89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813F28326FF5A060059DD89 /* SceneDelegate.swift */; };
-		1813F28626FF5A060059DD89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813F28526FF5A060059DD89 /* ViewController.swift */; };
-		1813F28926FF5A060059DD89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813F28726FF5A060059DD89 /* Main.storyboard */; };
-		1813F28B26FF5A0C0059DD89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1813F28A26FF5A0C0059DD89 /* Assets.xcassets */; };
-		1813F28E26FF5A0C0059DD89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813F28C26FF5A0C0059DD89 /* LaunchScreen.storyboard */; };
-		1813F2A226FF69E20059DD89 /* ShabbatTimesMind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813F29E26FF69E10059DD89 /* ShabbatTimesMind.swift */; };
-		1813F2A326FF69E20059DD89 /* ShabbatTimesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813F29F26FF69E10059DD89 /* ShabbatTimesDelegate.swift */; };
-		1813F2A426FF69E20059DD89 /* ShabbatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813F2A026FF69E20059DD89 /* ShabbatItem.swift */; };
-		1813F2A526FF69E20059DD89 /* ShabbatTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813F2A126FF69E20059DD89 /* ShabbatTimes.swift */; };
-		1813F2AB26FF6EAB0059DD89 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813F2AA26FF6EAB0059DD89 /* SpinnerViewController.swift */; };
-		2A690966254262593B63F440 /* Pods_shabbat_helper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAF7587D0763180D66915B6 /* Pods_shabbat_helper.framework */; };
-/* End PBXBuildFile section */
+/* Begin PBXContainerItemProxy section */
+		CEB706AE2FD2E45E00F73282 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CEB706982FD2E45C00F73282 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEB7069F2FD2E45C00F73282;
+			remoteInfo = "shabbat-helper";
+		};
+		CEB706B82FD2E45E00F73282 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CEB706982FD2E45C00F73282 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEB7069F2FD2E45C00F73282;
+			remoteInfo = "shabbat-helper";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		11CF7964C6BD6E6A89226597 /* Pods-shabbat-helper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shabbat-helper.debug.xcconfig"; path = "Target Support Files/Pods-shabbat-helper/Pods-shabbat-helper.debug.xcconfig"; sourceTree = "<group>"; };
-		1813F27E26FF5A060059DD89 /* shabbat-helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "shabbat-helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1813F28126FF5A060059DD89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1813F28326FF5A060059DD89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1813F28526FF5A060059DD89 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1813F28826FF5A060059DD89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1813F28A26FF5A0C0059DD89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1813F28D26FF5A0C0059DD89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1813F28F26FF5A0C0059DD89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1813F29E26FF69E10059DD89 /* ShabbatTimesMind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShabbatTimesMind.swift; sourceTree = "<group>"; };
-		1813F29F26FF69E10059DD89 /* ShabbatTimesDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShabbatTimesDelegate.swift; sourceTree = "<group>"; };
-		1813F2A026FF69E20059DD89 /* ShabbatItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShabbatItem.swift; sourceTree = "<group>"; };
-		1813F2A126FF69E20059DD89 /* ShabbatTimes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShabbatTimes.swift; sourceTree = "<group>"; };
-		1813F2AA26FF6EAB0059DD89 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
-		ACAF7587D0763180D66915B6 /* Pods_shabbat_helper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_shabbat_helper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF46DA8BBAC91DCEA6555C20 /* Pods-shabbat-helper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shabbat-helper.release.xcconfig"; path = "Target Support Files/Pods-shabbat-helper/Pods-shabbat-helper.release.xcconfig"; sourceTree = "<group>"; };
+		CEB706A02FD2E45C00F73282 /* shabbat-helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "shabbat-helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEB706AD2FD2E45E00F73282 /* shabbat-helperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "shabbat-helperTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEB706B72FD2E45E00F73282 /* shabbat-helperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "shabbat-helperUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CEB706A22FD2E45C00F73282 /* shabbat-helper */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "shabbat-helper";
+			sourceTree = "<group>";
+		};
+		CEB706B02FD2E45E00F73282 /* shabbat-helperTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "shabbat-helperTests";
+			sourceTree = "<group>";
+		};
+		CEB706BA2FD2E45E00F73282 /* shabbat-helperUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "shabbat-helperUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
-		1813F27B26FF5A060059DD89 /* Frameworks */ = {
+		CEB7069D2FD2E45C00F73282 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A690966254262593B63F440 /* Pods_shabbat_helper.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEB706AA2FD2E45E00F73282 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEB706B42FD2E45E00F73282 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1813F27526FF5A060059DD89 = {
+		CEB706972FD2E45C00F73282 = {
 			isa = PBXGroup;
 			children = (
-				1813F28026FF5A060059DD89 /* shabbat-helper */,
-				1813F27F26FF5A060059DD89 /* Products */,
-				B4FD760535B52850CA25FD88 /* Pods */,
-				6E0FAF9A9B354D90DA2A6691 /* Frameworks */,
+				CEB706A22FD2E45C00F73282 /* shabbat-helper */,
+				CEB706B02FD2E45E00F73282 /* shabbat-helperTests */,
+				CEB706BA2FD2E45E00F73282 /* shabbat-helperUITests */,
+				CEB706A12FD2E45C00F73282 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		1813F27F26FF5A060059DD89 /* Products */ = {
+		CEB706A12FD2E45C00F73282 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1813F27E26FF5A060059DD89 /* shabbat-helper.app */,
+				CEB706A02FD2E45C00F73282 /* shabbat-helper.app */,
+				CEB706AD2FD2E45E00F73282 /* shabbat-helperTests.xctest */,
+				CEB706B72FD2E45E00F73282 /* shabbat-helperUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		1813F28026FF5A060059DD89 /* shabbat-helper */ = {
-			isa = PBXGroup;
-			children = (
-				1813F29B26FF683B0059DD89 /* Lifecycle */,
-				1813F29A26FF68260059DD89 /* Resources */,
-				1813F29C26FF699E0059DD89 /* Model */,
-				1813F29826FF67D80059DD89 /* View */,
-				1813F29926FF68000059DD89 /* Controller */,
-				1813F28F26FF5A0C0059DD89 /* Info.plist */,
-			);
-			path = "shabbat-helper";
-			sourceTree = "<group>";
-		};
-		1813F29826FF67D80059DD89 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				1813F28726FF5A060059DD89 /* Main.storyboard */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		1813F29926FF68000059DD89 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				1813F28526FF5A060059DD89 /* ViewController.swift */,
-				1813F2AA26FF6EAB0059DD89 /* SpinnerViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		1813F29A26FF68260059DD89 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				1813F28C26FF5A0C0059DD89 /* LaunchScreen.storyboard */,
-				1813F28A26FF5A0C0059DD89 /* Assets.xcassets */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		1813F29B26FF683B0059DD89 /* Lifecycle */ = {
-			isa = PBXGroup;
-			children = (
-				1813F28126FF5A060059DD89 /* AppDelegate.swift */,
-				1813F28326FF5A060059DD89 /* SceneDelegate.swift */,
-			);
-			path = Lifecycle;
-			sourceTree = "<group>";
-		};
-		1813F29C26FF699E0059DD89 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				1813F29D26FF69D00059DD89 /* Shabbat */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		1813F29D26FF69D00059DD89 /* Shabbat */ = {
-			isa = PBXGroup;
-			children = (
-				1813F2A026FF69E20059DD89 /* ShabbatItem.swift */,
-				1813F2A126FF69E20059DD89 /* ShabbatTimes.swift */,
-				1813F29F26FF69E10059DD89 /* ShabbatTimesDelegate.swift */,
-				1813F29E26FF69E10059DD89 /* ShabbatTimesMind.swift */,
-			);
-			path = Shabbat;
-			sourceTree = "<group>";
-		};
-		6E0FAF9A9B354D90DA2A6691 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				ACAF7587D0763180D66915B6 /* Pods_shabbat_helper.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		B4FD760535B52850CA25FD88 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				11CF7964C6BD6E6A89226597 /* Pods-shabbat-helper.debug.xcconfig */,
-				FF46DA8BBAC91DCEA6555C20 /* Pods-shabbat-helper.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1813F27D26FF5A060059DD89 /* shabbat-helper */ = {
+		CEB7069F2FD2E45C00F73282 /* shabbat-helper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1813F29226FF5A0C0059DD89 /* Build configuration list for PBXNativeTarget "shabbat-helper" */;
+			buildConfigurationList = CEB706C12FD2E45E00F73282 /* Build configuration list for PBXNativeTarget "shabbat-helper" */;
 			buildPhases = (
-				A21459DC88009577CDA1D772 /* [CP] Check Pods Manifest.lock */,
-				1813F27A26FF5A060059DD89 /* Sources */,
-				1813F27B26FF5A060059DD89 /* Frameworks */,
-				1813F27C26FF5A060059DD89 /* Resources */,
-				4D2333AA8A4F58F381B22584 /* [CP] Embed Pods Frameworks */,
+				CEB7069C2FD2E45C00F73282 /* Sources */,
+				CEB7069D2FD2E45C00F73282 /* Frameworks */,
+				CEB7069E2FD2E45C00F73282 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				CEB706A22FD2E45C00F73282 /* shabbat-helper */,
+			);
 			name = "shabbat-helper";
+			packageProductDependencies = (
+			);
 			productName = "shabbat-helper";
-			productReference = 1813F27E26FF5A060059DD89 /* shabbat-helper.app */;
+			productReference = CEB706A02FD2E45C00F73282 /* shabbat-helper.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CEB706AC2FD2E45E00F73282 /* shabbat-helperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEB706C42FD2E45E00F73282 /* Build configuration list for PBXNativeTarget "shabbat-helperTests" */;
+			buildPhases = (
+				CEB706A92FD2E45E00F73282 /* Sources */,
+				CEB706AA2FD2E45E00F73282 /* Frameworks */,
+				CEB706AB2FD2E45E00F73282 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEB706AF2FD2E45E00F73282 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CEB706B02FD2E45E00F73282 /* shabbat-helperTests */,
+			);
+			name = "shabbat-helperTests";
+			packageProductDependencies = (
+			);
+			productName = "shabbat-helperTests";
+			productReference = CEB706AD2FD2E45E00F73282 /* shabbat-helperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CEB706B62FD2E45E00F73282 /* shabbat-helperUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEB706C72FD2E45E00F73282 /* Build configuration list for PBXNativeTarget "shabbat-helperUITests" */;
+			buildPhases = (
+				CEB706B32FD2E45E00F73282 /* Sources */,
+				CEB706B42FD2E45E00F73282 /* Frameworks */,
+				CEB706B52FD2E45E00F73282 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEB706B92FD2E45E00F73282 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CEB706BA2FD2E45E00F73282 /* shabbat-helperUITests */,
+			);
+			name = "shabbat-helperUITests";
+			packageProductDependencies = (
+			);
+			productName = "shabbat-helperUITests";
+			productReference = CEB706B72FD2E45E00F73282 /* shabbat-helperUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1813F27626FF5A060059DD89 /* Project object */ = {
+		CEB706982FD2E45C00F73282 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastSwiftUpdateCheck = 2650;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
-					1813F27D26FF5A060059DD89 = {
-						CreatedOnToolsVersion = 13.0;
+					CEB7069F2FD2E45C00F73282 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					CEB706AC2FD2E45E00F73282 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = CEB7069F2FD2E45C00F73282;
+					};
+					CEB706B62FD2E45E00F73282 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = CEB7069F2FD2E45C00F73282;
 					};
 				};
 			};
-			buildConfigurationList = 1813F27926FF5A060059DD89 /* Build configuration list for PBXProject "shabbat-helper" */;
-			compatibilityVersion = "Xcode 13.0";
+			buildConfigurationList = CEB7069B2FD2E45C00F73282 /* Build configuration list for PBXProject "shabbat-helper" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 1813F27526FF5A060059DD89;
-			productRefGroup = 1813F27F26FF5A060059DD89 /* Products */;
+			mainGroup = CEB706972FD2E45C00F73282;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CEB706A12FD2E45C00F73282 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1813F27D26FF5A060059DD89 /* shabbat-helper */,
+				CEB7069F2FD2E45C00F73282 /* shabbat-helper */,
+				CEB706AC2FD2E45E00F73282 /* shabbat-helperTests */,
+				CEB706B62FD2E45E00F73282 /* shabbat-helperUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1813F27C26FF5A060059DD89 /* Resources */ = {
+		CEB7069E2FD2E45C00F73282 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1813F28E26FF5A0C0059DD89 /* LaunchScreen.storyboard in Resources */,
-				1813F28B26FF5A0C0059DD89 /* Assets.xcassets in Resources */,
-				1813F28926FF5A060059DD89 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEB706AB2FD2E45E00F73282 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEB706B52FD2E45E00F73282 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		4D2333AA8A4F58F381B22584 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-shabbat-helper/Pods-shabbat-helper-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-shabbat-helper/Pods-shabbat-helper-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-shabbat-helper/Pods-shabbat-helper-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A21459DC88009577CDA1D772 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-shabbat-helper-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		1813F27A26FF5A060059DD89 /* Sources */ = {
+		CEB7069C2FD2E45C00F73282 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1813F2A226FF69E20059DD89 /* ShabbatTimesMind.swift in Sources */,
-				1813F28626FF5A060059DD89 /* ViewController.swift in Sources */,
-				1813F2A526FF69E20059DD89 /* ShabbatTimes.swift in Sources */,
-				1813F28226FF5A060059DD89 /* AppDelegate.swift in Sources */,
-				1813F2AB26FF6EAB0059DD89 /* SpinnerViewController.swift in Sources */,
-				1813F28426FF5A060059DD89 /* SceneDelegate.swift in Sources */,
-				1813F2A426FF69E20059DD89 /* ShabbatItem.swift in Sources */,
-				1813F2A326FF69E20059DD89 /* ShabbatTimesDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEB706A92FD2E45E00F73282 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEB706B32FD2E45E00F73282 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		1813F28726FF5A060059DD89 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1813F28826FF5A060059DD89 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
+/* Begin PBXTargetDependency section */
+		CEB706AF2FD2E45E00F73282 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEB7069F2FD2E45C00F73282 /* shabbat-helper */;
+			targetProxy = CEB706AE2FD2E45E00F73282 /* PBXContainerItemProxy */;
 		};
-		1813F28C26FF5A0C0059DD89 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1813F28D26FF5A0C0059DD89 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
+		CEB706B92FD2E45E00F73282 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEB7069F2FD2E45C00F73282 /* shabbat-helper */;
+			targetProxy = CEB706B82FD2E45E00F73282 /* PBXContainerItemProxy */;
 		};
-/* End PBXVariantGroup section */
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1813F29026FF5A0C0059DD89 /* Debug */ = {
+		CEB706BF2FD2E45E00F73282 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -337,9 +304,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = C9G682MFF8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -353,24 +322,25 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		1813F29126FF5A0C0059DD89 /* Release */ = {
+		CEB706C02FD2E45E00F73282 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -398,9 +368,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C9G682MFF8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -408,104 +380,218 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		1813F29326FF5A0C0059DD89 /* Debug */ = {
+		CEB706C22FD2E45E00F73282 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11CF7964C6BD6E6A89226597 /* Pods-shabbat-helper.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C9G682MFF8;
+				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "shabbat-helper/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Shabbat Helper";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to provide you with the relevant candles lighting data";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Shabbat Helper uses your location to show accurate candle-lighting times.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aharon.shabbat-helper";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fd14348881ba6ec3.shabbat-helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		1813F29426FF5A0C0059DD89 /* Release */ = {
+		CEB706C32FD2E45E00F73282 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF46DA8BBAC91DCEA6555C20 /* Pods-shabbat-helper.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C9G682MFF8;
+				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "shabbat-helper/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Shabbat Helper";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to provide you with the relevant candles lighting data";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Shabbat Helper uses your location to show accurate candle-lighting times.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aharon.shabbat-helper";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fd14348881ba6ec3.shabbat-helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		CEB706C52FD2E45E00F73282 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9G682MFF8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fd14348881ba6ec3.shabbat-helperTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/shabbat-helper.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/shabbat-helper";
+			};
+			name = Debug;
+		};
+		CEB706C62FD2E45E00F73282 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9G682MFF8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fd14348881ba6ec3.shabbat-helperTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/shabbat-helper.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/shabbat-helper";
+			};
+			name = Release;
+		};
+		CEB706C82FD2E45E00F73282 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9G682MFF8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fd14348881ba6ec3.shabbat-helperUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "shabbat-helper";
+			};
+			name = Debug;
+		};
+		CEB706C92FD2E45E00F73282 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9G682MFF8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fd14348881ba6ec3.shabbat-helperUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "shabbat-helper";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1813F27926FF5A060059DD89 /* Build configuration list for PBXProject "shabbat-helper" */ = {
+		CEB7069B2FD2E45C00F73282 /* Build configuration list for PBXProject "shabbat-helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1813F29026FF5A0C0059DD89 /* Debug */,
-				1813F29126FF5A0C0059DD89 /* Release */,
+				CEB706BF2FD2E45E00F73282 /* Debug */,
+				CEB706C02FD2E45E00F73282 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1813F29226FF5A0C0059DD89 /* Build configuration list for PBXNativeTarget "shabbat-helper" */ = {
+		CEB706C12FD2E45E00F73282 /* Build configuration list for PBXNativeTarget "shabbat-helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1813F29326FF5A0C0059DD89 /* Debug */,
-				1813F29426FF5A0C0059DD89 /* Release */,
+				CEB706C22FD2E45E00F73282 /* Debug */,
+				CEB706C32FD2E45E00F73282 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEB706C42FD2E45E00F73282 /* Build configuration list for PBXNativeTarget "shabbat-helperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEB706C52FD2E45E00F73282 /* Debug */,
+				CEB706C62FD2E45E00F73282 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEB706C72FD2E45E00F73282 /* Build configuration list for PBXNativeTarget "shabbat-helperUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEB706C82FD2E45E00F73282 /* Debug */,
+				CEB706C92FD2E45E00F73282 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1813F27626FF5A060059DD89 /* Project object */;
+	rootObject = CEB706982FD2E45C00F73282 /* Project object */;
 }
