@@ -18,7 +18,11 @@ final class CitySearchViewModel: NSObject, ObservableObject {
         let location: SavedLocation
 
         var title: String {
-            "\(label) — \(location.name)"
+            String(
+                format: String(localized: "address_suggestion_title_format"),
+                label,
+                location.name
+            )
         }
     }
 
@@ -271,7 +275,7 @@ extension CitySearchViewModel: MKLocalSearchCompleterDelegate {
     nonisolated func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         Task { @MainActor [weak self] in
             self?.results = []
-            self?.state = .error("We couldn’t find that city. Try a nearby city or a more specific search.")
+            self?.state = .error(String(localized: "search_error_city_not_found"))
         }
     }
 }

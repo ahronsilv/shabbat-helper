@@ -60,7 +60,6 @@ struct CitySearchOverlayView: View {
             .frame(width: overlayWidth, height: proxy.size.height, alignment: .bottom)
             .offset(x: horizontalCorrection)
             .clipped()
-            .environment(\.layoutDirection, .leftToRight)
             .ignoresSafeArea()
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { notification in
                 updateKeyboardOverlap(from: notification, in: proxy)
@@ -119,7 +118,7 @@ struct CitySearchOverlayView: View {
                     HStack(spacing: 12) {
                         ProgressView()
                             .tint(.white)
-                        Text("Searching cities...")
+                        Text("searching_cities")
                             .foregroundStyle(.white.opacity(0.68))
                     }
                     .padding(.top, 28)
@@ -138,13 +137,13 @@ struct CitySearchOverlayView: View {
                 case .noResults:
                     SearchOverlayMessage(
                         systemImage: "mappin.slash",
-                        title: "No Results",
-                        message: "Try a nearby city, add a country, or check the spelling."
+                        title: String(localized: "no_results"),
+                        message: String(localized: "no_results_message")
                     )
                 case .error(let message):
                     SearchOverlayMessage(
                         systemImage: "exclamationmark.triangle",
-                        title: "Search Failed",
+                        title: String(localized: "search_failed"),
                         message: message
                     )
                 }
@@ -160,7 +159,7 @@ struct CitySearchOverlayView: View {
     private var addressSuggestionsSection: some View {
         if !viewModel.addressSuggestions.isEmpty {
             VStack(alignment: .leading, spacing: 14) {
-                Text("Suggestions")
+                Text("suggestions")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.white.opacity(0.38))
 
@@ -190,7 +189,7 @@ struct CitySearchOverlayView: View {
             TextField(
                 "",
                 text: $viewModel.query,
-                prompt: Text("City or address")
+                prompt: Text("city_or_address")
                     .foregroundStyle(.white.opacity(0.5))
             )
             .textFieldStyle(.plain)
@@ -202,7 +201,6 @@ struct CitySearchOverlayView: View {
             .submitLabel(.done)
             .focused($isSearchFocused)
             .multilineTextAlignment(viewModel.query.hasRightToLeftBaseDirection ? .trailing : .leading)
-            .environment(\.layoutDirection, .leftToRight)
             .frame(maxWidth: .infinity, minHeight: 44)
             .clipped()
             .layoutPriority(1)
@@ -224,7 +222,7 @@ struct CitySearchOverlayView: View {
                     }
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("Close city search")
+            .accessibilityLabel("close_city_search")
             .fixedSize()
         }
         .padding(.leading, 16)
@@ -379,12 +377,12 @@ private struct SearchOverlayResultRow: View {
             Spacer(minLength: 12)
 
             if isAlreadySaved {
-                Label("Already added", systemImage: "checkmark.circle.fill")
+                Label("already_added", systemImage: "checkmark.circle.fill")
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.white.opacity(0.52))
-                    .accessibilityLabel("Already added")
+                    .accessibilityLabel("already_added")
             } else {
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.forward")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.white.opacity(0.34))
                     .accessibilityHidden(true)
@@ -403,7 +401,7 @@ private struct SearchOverlaySuggestionRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            Image(systemName: suggestion.label == "Home" ? "house.fill" : "briefcase.fill")
+            Image(systemName: suggestion.label == String(localized: "home_suggestion_label") ? "house.fill" : "briefcase.fill")
                 .font(.title3.weight(.semibold))
                 .frame(width: 30)
                 .foregroundStyle(.white.opacity(0.86))
@@ -421,10 +419,10 @@ private struct SearchOverlaySuggestionRow: View {
             Spacer(minLength: 12)
 
             if isAlreadySaved {
-                Label("Already added", systemImage: "checkmark.circle.fill")
+                Label("already_added", systemImage: "checkmark.circle.fill")
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.white.opacity(0.52))
-                    .accessibilityLabel("Already added")
+                    .accessibilityLabel("already_added")
             }
         }
         .padding(.vertical, 8)
@@ -439,11 +437,11 @@ private struct SearchOverlayHint: View {
                 .font(.system(size: 54, weight: .semibold))
                 .foregroundStyle(.white.opacity(0.46))
 
-            Text("Search for a City")
+            Text("search_for_city_title")
                 .font(.title3.weight(.bold))
                 .foregroundStyle(.white)
 
-            Text("Enter a city name, then select a result to preview candle-lighting times.")
+            Text("search_hint_message")
                 .font(.subheadline)
                 .foregroundStyle(.white.opacity(0.48))
                 .multilineTextAlignment(.center)

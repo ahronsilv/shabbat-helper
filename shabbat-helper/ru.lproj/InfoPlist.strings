@@ -1,0 +1,2 @@
+CFBundleDisplayName = "Время Шаббата";
+NSLocationWhenInUseUsageDescription = "Время Шаббата использует ваше местоположение, чтобы показывать точное время зажигания свечей.";

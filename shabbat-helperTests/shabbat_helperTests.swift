@@ -39,6 +39,17 @@ final class shabbat_helperTests: XCTestCase {
         XCTAssertFalse(TimeFormatPreference.storedUses24HourTime(defaults: defaults))
     }
 
+    func testHebcalLanguageMapperUsesSupportedApiLanguages() {
+        XCTAssertEqual(HebcalLanguageMapper.hebcalLanguageCode(for: Locale(identifier: "fr")), "fr")
+        XCTAssertEqual(HebcalLanguageMapper.hebcalLanguageCode(for: Locale(identifier: "ru")), "ru")
+        XCTAssertEqual(HebcalLanguageMapper.hebcalLanguageCode(for: Locale(identifier: "he")), "he-x-NoNikud")
+    }
+
+    func testHebcalLanguageMapperFallsBackForEnglishAndAmharic() {
+        XCTAssertNil(HebcalLanguageMapper.hebcalLanguageCode(for: Locale(identifier: "en")))
+        XCTAssertNil(HebcalLanguageMapper.hebcalLanguageCode(for: Locale(identifier: "am")))
+    }
+
     func testLoadFavoriteLocationsMigratesLegacySelectedLocation() {
         let legacyLocation = SavedLocation(
             name: "Jerusalem",

@@ -92,7 +92,7 @@ final class ShabbatTimesViewModel: ObservableObject {
             #if DEBUG
             print("Hebcal fetch failed:", error)
             #endif
-            state = .error("Please check your internet connection and try again.", location)
+            state = .error(String(localized: "error_check_connection_try_again"), location)
         }
     }
 }

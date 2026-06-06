@@ -39,6 +39,14 @@ struct HebcalItem: Decodable, Equatable, Identifiable {
         Self.dateTimeFormatter.date(from: date) ?? Self.dateOnlyFormatter.date(from: date)
     }
 
+    var displayTitle: String {
+        if Locale.autoupdatingCurrent.language.languageCode?.identifier == "he", let hebrew, !hebrew.isEmpty {
+            return hebrew
+        }
+
+        return title
+    }
+
     private static let dateTimeFormatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime]

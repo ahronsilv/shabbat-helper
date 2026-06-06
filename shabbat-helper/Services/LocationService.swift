@@ -14,11 +14,11 @@ enum LocationServiceError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .unavailable:
-            "Location services are unavailable on this device."
+            String(localized: "location_error_unavailable")
         case .denied:
-            "Location access is off."
+            String(localized: "location_error_denied")
         case .unableToFindLocation:
-            "The current location could not be determined."
+            String(localized: "location_error_unable_to_find")
         }
     }
 }
@@ -92,9 +92,9 @@ final class LocationService: NSObject, LocationServicing, CLLocationManagerDeleg
 
     private func makeSavedLocation(from location: CLLocation) async -> SavedLocation {
         let placemark = try? await geocoder.reverseGeocodeLocation(location).first
-        let name = placemark?.locality ?? placemark?.name ?? "Current Location"
+        let name = placemark?.locality ?? placemark?.name ?? String(localized: "current_location")
         let detailParts = [placemark?.administrativeArea, placemark?.country].compactMap { $0 }
-        let detail = detailParts.isEmpty ? "Current Location" : detailParts.joined(separator: ", ")
+        let detail = detailParts.isEmpty ? String(localized: "current_location") : detailParts.joined(separator: ", ")
         let timeZoneIdentifier = placemark?.timeZone?.identifier ?? TimeZone.current.identifier
 
         return SavedLocation(

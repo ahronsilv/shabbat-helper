@@ -97,7 +97,7 @@ struct CitySearchPreviewView: View {
                     }
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("Close city preview")
+            .accessibilityLabel("close_city_preview")
 
             Spacer()
 
@@ -124,7 +124,7 @@ struct CitySearchPreviewView: View {
                 }
                 .buttonStyle(.plain)
                 .disabled(isAdding)
-                .accessibilityLabel("Add city")
+                .accessibilityLabel("add_city")
             }
         }
         .padding(.horizontal, 20)
@@ -143,19 +143,19 @@ struct CitySearchPreviewView: View {
         case .locationDenied:
             PreviewMessageCard(
                 systemImage: "location.slash",
-                title: "Location Access Is Off",
-                message: "This city can still be previewed from search, but current-location access is unavailable."
+                title: String(localized: "location_access_is_off"),
+                message: String(localized: "preview_location_denied_message")
             )
         case .empty:
             PreviewMessageCard(
                 systemImage: "calendar.badge.exclamationmark",
-                title: "No Candle Lighting Found",
-                message: "Try another nearby city or refresh in a moment."
+                title: String(localized: "no_candle_lighting_found"),
+                message: String(localized: "preview_no_candle_lighting_message")
             )
         case .error(let message, _):
             PreviewMessageCard(
                 systemImage: "wifi.exclamationmark",
-                title: "Could not Update Times",
+                title: String(localized: "could_not_update_times"),
                 message: message
             )
         }
@@ -202,17 +202,17 @@ private struct PreviewCandleCard: View {
         let candleDate = times.candleLighting.dateValue
 
         VStack(alignment: .leading, spacing: 14) {
-            Label("Candle Lighting", systemImage: "flame.fill")
+            Label("candle_lighting", systemImage: "flame.fill")
                 .font(.headline.weight(.semibold))
                 .foregroundStyle(.white.opacity(0.62))
 
-            Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? "Time unavailable")
+            Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? String(localized: "time_unavailable"))
                 .font(.system(size: 66, weight: .thin, design: .rounded))
                 .lineLimit(1)
                 .minimumScaleFactor(0.55)
                 .monospacedDigit()
 
-            Text(candleDate.map { DisplayFormatters.day($0, timeZone: times.timeZone) } ?? "Date unavailable")
+            Text(candleDate.map { DisplayFormatters.day($0, timeZone: times.timeZone) } ?? String(localized: "date_unavailable"))
                 .font(.title3.weight(.semibold))
                 .foregroundStyle(.white.opacity(0.62))
         }
@@ -231,7 +231,7 @@ private struct PreviewDetailsCard: View {
         VStack(spacing: 0) {
             PreviewDetailRow(
                 icon: "mappin.and.ellipse",
-                title: "Region",
+                title: String(localized: "region"),
                 value: times.locationDetail
             )
 
@@ -239,23 +239,23 @@ private struct PreviewDetailsCard: View {
 
             PreviewDetailRow(
                 icon: "sparkles",
-                title: "Havdalah",
-                value: times.havdalah?.dateValue.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? "Not available"
+                title: String(localized: "havdalah"),
+                value: times.havdalah?.dateValue.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? String(localized: "not_available")
             )
 
             Divider().overlay(.white.opacity(0.18))
 
             PreviewDetailRow(
                 icon: "book.closed.fill",
-                title: "Parsha",
-                value: times.parsha?.title.replacingOccurrences(of: "Parashat ", with: "") ?? times.candleLighting.memo ?? "Not available"
+                title: String(localized: "parsha"),
+                value: times.parsha?.displayTitle ?? times.candleLighting.memo ?? String(localized: "not_available")
             )
 
             Divider().overlay(.white.opacity(0.18))
 
             PreviewDetailRow(
                 icon: "location.north.line.fill",
-                title: "Coordinates",
+                title: String(localized: "coordinates"),
                 value: DisplayFormatters.shortCoordinate(latitude: location.latitude, longitude: location.longitude)
             )
         }
@@ -298,7 +298,7 @@ private struct PreviewLoadingCard: View {
         VStack(spacing: 16) {
             ProgressView()
                 .tint(.white)
-            Text("Fetching Candle Lighting")
+            Text("fetching_candle_lighting")
                 .font(.headline)
                 .foregroundStyle(.white.opacity(0.62))
         }
@@ -335,13 +335,13 @@ private struct PreviewMessageCard: View {
 
 private struct AlreadyAddedNotice: View {
     var body: some View {
-        Label("Already added", systemImage: "checkmark.circle.fill")
+        Label("already_added", systemImage: "checkmark.circle.fill")
             .font(.subheadline.weight(.semibold))
             .foregroundStyle(.white.opacity(0.62))
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
             .background(Color.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .accessibilityLabel("Already added")
+            .accessibilityLabel("already_added")
     }
 }

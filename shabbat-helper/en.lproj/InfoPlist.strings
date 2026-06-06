@@ -1,0 +1,2 @@
+CFBundleDisplayName = "Shabbat Times";
+NSLocationWhenInUseUsageDescription = "Shabbat Times uses your location to show accurate candle-lighting times.";

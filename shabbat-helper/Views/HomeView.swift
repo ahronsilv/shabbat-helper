@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.editMode) private var editMode
+    @Environment(\.locale) private var locale
     @AppStorage(TimeFormatPreference.uses24HourTimeKey) private var uses24HourTime = TimeFormatPreference.defaultUses24HourTime
     @StateObject private var viewModel = HomeViewModel()
     @State private var isSearchActive = false
@@ -66,7 +67,7 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     if isEditingList {
-                        Button("Done") {
+                        Button("done") {
                             setEditingList(false)
                         }
                         .fontWeight(.semibold)
@@ -77,7 +78,7 @@ struct HomeView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         if !viewModel.favorites.isEmpty {
-                            Button(isEditingList ? "Done Editing" : "Edit List") {
+                            Button(isEditingList ? String(localized: "done_editing") : String(localized: "edit_list")) {
                                 setEditingList(!isEditingList)
                             }
                         }
@@ -90,7 +91,7 @@ struct HomeView: View {
                             .font(.title3)
                     }
                     .foregroundStyle(.white)
-                    .accessibilityLabel("More options")
+                    .accessibilityLabel("more_options")
                 }
             }
             .toolbar(isSearchActive ? .hidden : .visible, for: .navigationBar)
@@ -103,6 +104,9 @@ struct HomeView: View {
             guard !hasLoaded else { return }
             hasLoaded = true
             await viewModel.load()
+        }
+        .onChange(of: locale.identifier) { _, _ in
+            Task { await viewModel.refresh() }
         }
     }
 
@@ -129,8 +133,8 @@ struct HomeView: View {
                 .listCardRow()
             } else if viewModel.isRequestingCurrentLocation {
                 FavoriteCityCard(
-                    title: "Current Location",
-                    detail: "Finding your location",
+                    title: String(localized: "current_location"),
+                    detail: String(localized: "finding_your_location"),
                     status: .loading,
                     isCurrentLocation: true,
                     uses24HourTime: uses24HourTime
@@ -167,6 +171,7 @@ struct HomeView: View {
 }
 
 private struct ShabbatTimesDetailView: View {
+    @Environment(\.locale) private var locale
     @AppStorage(TimeFormatPreference.uses24HourTimeKey) private var uses24HourTime = TimeFormatPreference.defaultUses24HourTime
     @StateObject private var viewModel: ShabbatTimesViewModel
     @State private var hasLoaded = false
@@ -200,6 +205,9 @@ private struct ShabbatTimesDetailView: View {
             hasLoaded = true
             await viewModel.load()
         }
+        .onChange(of: locale.identifier) { _, _ in
+            Task { await viewModel.refresh() }
+        }
     }
 
     private var detailTitle: String {
@@ -210,12 +218,12 @@ private struct ShabbatTimesDetailView: View {
     private var content: some View {
         switch viewModel.state {
         case .initialLoading:
-            LoadingStateView(title: "Loading Shabbat Times", systemImage: "sun.horizon.fill")
+            LoadingStateView(title: String(localized: "loading_shabbat_times"), systemImage: "sun.horizon.fill")
         case .requestingLocation:
-            LoadingStateView(title: "Finding Your Location", systemImage: "location.fill")
+            LoadingStateView(title: String(localized: "finding_your_location_title"), systemImage: "location.fill")
         case .fetchingTimes(let location):
             HeaderView(locationName: location.name, detail: location.detail)
-            LoadingStateView(title: "Fetching Candle Lighting", systemImage: "flame.fill")
+            LoadingStateView(title: String(localized: "fetching_candle_lighting"), systemImage: "flame.fill")
         case .loaded(let times, let savedLocation):
             HeaderView(locationName: savedLocation.name, detail: savedLocation.detail)
             CandleLightingCard(times: times, uses24HourTime: uses24HourTime)
@@ -223,12 +231,12 @@ private struct ShabbatTimesDetailView: View {
         case .locationDenied:
             MessageCard(
                 systemImage: "location.slash.fill",
-                title: "Location Access Is Off",
-                message: "Search for a city from the main list, or enable location access and try current location again.",
-                primaryTitle: "Try Again",
+                title: String(localized: "location_access_is_off"),
+                message: String(localized: "location_access_off_message"),
+                primaryTitle: String(localized: "try_again"),
                 primarySystemImage: "location.fill",
                 primaryAction: { Task { await viewModel.useCurrentLocation() } },
-                secondaryTitle: "Refresh",
+                secondaryTitle: String(localized: "refresh"),
                 secondarySystemImage: "arrow.clockwise",
                 secondaryAction: { Task { await viewModel.refresh() } }
             )
@@ -236,12 +244,12 @@ private struct ShabbatTimesDetailView: View {
             HeaderView(locationName: location.name, detail: location.detail)
             MessageCard(
                 systemImage: "calendar.badge.exclamationmark",
-                title: "No Candle Lighting Found",
-                message: "We couldn’t find candle-lighting time for this location. Try another city or refresh in a moment.",
-                primaryTitle: "Refresh",
+                title: String(localized: "no_candle_lighting_found"),
+                message: String(localized: "no_candle_lighting_message"),
+                primaryTitle: String(localized: "refresh"),
                 primarySystemImage: "arrow.clockwise",
                 primaryAction: { Task { await viewModel.refresh() } },
-                secondaryTitle: "Try Current",
+                secondaryTitle: String(localized: "try_current"),
                 secondarySystemImage: "location.fill",
                 secondaryAction: { Task { await viewModel.useCurrentLocation() } }
             )
@@ -251,12 +259,12 @@ private struct ShabbatTimesDetailView: View {
             }
             MessageCard(
                 systemImage: "wifi.exclamationmark",
-                title: "Couldn’t Update Times",
+                title: String(localized: "could_not_update_times"),
                 message: message,
-                primaryTitle: "Try Again",
+                primaryTitle: String(localized: "try_again"),
                 primarySystemImage: "arrow.clockwise",
                 primaryAction: { Task { await viewModel.refresh() } },
-                secondaryTitle: "Current",
+                secondaryTitle: String(localized: "current"),
                 secondarySystemImage: "location.fill",
                 secondaryAction: { Task { await viewModel.useCurrentLocation() } }
             )
@@ -283,7 +291,7 @@ private struct FavoriteCityCard: View {
     }
 
     init(row: HomeViewModel.LocationRow, isCurrentLocation: Bool, uses24HourTime: Bool) {
-        self.title = isCurrentLocation ? "Current Location" : row.location.name
+        self.title = isCurrentLocation ? String(localized: "current_location") : row.location.name
         self.detail = isCurrentLocation ? row.location.nameAndDetail : row.location.detail
         self.status = row.status
         self.isCurrentLocation = isCurrentLocation
@@ -352,7 +360,7 @@ private struct FavoriteCityCard: View {
             VStack(alignment: .trailing, spacing: 8) {
                 ProgressView()
                     .tint(.white)
-                Text("Loading")
+                Text("loading")
                     .font(.caption.weight(.medium))
                     .foregroundStyle(.white.opacity(0.72))
                     .lineLimit(1)
@@ -366,14 +374,14 @@ private struct FavoriteCityCard: View {
                     .monospacedDigit()
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
-                Text(candleDate.map { DisplayFormatters.shortDay($0, timeZone: times.timeZone) } ?? "Date unavailable")
+                Text(candleDate.map { DisplayFormatters.shortDay($0, timeZone: times.timeZone) } ?? String(localized: "date_unavailable"))
                     .font(.caption.weight(.medium))
                     .foregroundStyle(.white.opacity(0.72))
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
             }
         case .empty:
-            StatusBadge(title: "No time", systemImage: "calendar.badge.exclamationmark")
+            StatusBadge(title: String(localized: "no_time"), systemImage: "calendar.badge.exclamationmark")
         case .error(let message):
             StatusBadge(title: message, systemImage: "wifi.exclamationmark")
         }
@@ -404,7 +412,7 @@ private struct CurrentLocationUnavailableCard: View {
                 .frame(width: 32, height: 32)
 
             VStack(alignment: .leading, spacing: 5) {
-                Text("Current Location")
+                Text("current_location")
                     .font(.headline.weight(.semibold))
                 Text(message)
                     .font(.subheadline)
@@ -420,7 +428,7 @@ private struct CurrentLocationUnavailableCard: View {
                     .background(.ultraThinMaterial, in: Circle())
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("Retry Current Location")
+            .accessibilityLabel("retry_current_location")
         }
         .padding(18)
         .frame(maxWidth: .infinity, minHeight: 96, alignment: .leading)
@@ -433,9 +441,9 @@ private struct EmptyFavoritesCard: View {
         VStack(spacing: 16) {
             Image(systemName: "plus.magnifyingglass")
                 .font(.system(size: 42, weight: .semibold))
-            Text("Add a Favourite City")
+            Text("add_favourite_city")
                 .font(.title3.weight(.semibold))
-            Text("Saved cities stay below current location and can be reordered or removed from this list.")
+            Text("empty_favorites_message")
                 .font(.subheadline)
                 .foregroundStyle(.white.opacity(0.74))
                 .multilineTextAlignment(.center)
@@ -456,7 +464,7 @@ private struct BottomCitySearchBar: View {
                     .font(.title2.weight(.semibold))
                     .accessibilityHidden(true)
 
-                Text("Search for a city")
+                Text("search_for_city")
                     .font(.body.weight(.medium))
                     .lineLimit(1)
                     .minimumScaleFactor(0.82)
@@ -475,7 +483,7 @@ private struct BottomCitySearchBar: View {
                 .stroke(.white.opacity(0.22), lineWidth: 1)
         }
         .shadow(color: .black.opacity(0.16), radius: 14, x: 0, y: 8)
-        .accessibilityLabel("Search for a city")
+        .accessibilityLabel("search_for_city")
     }
 }
 
@@ -540,18 +548,18 @@ private struct CandleLightingCard: View {
         let candleDate = times.candleLighting.dateValue
 
         VStack(alignment: .leading, spacing: 16) {
-            Label("Candle Lighting", systemImage: "flame.fill")
+            Label("candle_lighting", systemImage: "flame.fill")
                 .font(.headline.weight(.semibold))
                 .foregroundStyle(.white.opacity(0.82))
 
-            Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? "Time unavailable")
+            Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? String(localized: "time_unavailable"))
                 .font(.system(size: 68, weight: .thin, design: .rounded))
                 .lineLimit(1)
                 .minimumScaleFactor(0.55)
                 .contentTransition(.numericText())
 
             VStack(alignment: .leading, spacing: 6) {
-                Text(candleDate.map { DisplayFormatters.day($0, timeZone: times.timeZone) } ?? "Date unavailable")
+                Text(candleDate.map { DisplayFormatters.day($0, timeZone: times.timeZone) } ?? String(localized: "date_unavailable"))
                     .font(.title3.weight(.semibold))
                 Text(times.timeZone.identifier.replacingOccurrences(of: "_", with: " "))
                     .font(.subheadline)
@@ -574,31 +582,31 @@ private struct ShabbatDetailsCard: View {
         VStack(spacing: 0) {
             DetailRow(
                 icon: "book.closed.fill",
-                title: "Parsha",
-                value: times.parsha?.title.replacingOccurrences(of: "Parashat ", with: "") ?? times.candleLighting.memo ?? "Not available"
+                title: String(localized: "parsha"),
+                value: times.parsha?.displayTitle ?? times.candleLighting.memo ?? String(localized: "not_available")
             )
 
             Divider().overlay(.white.opacity(0.18))
 
             DetailRow(
                 icon: "sparkles",
-                title: "Havdalah",
-                value: times.havdalah?.dateValue.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? "Not available"
+                title: String(localized: "havdalah"),
+                value: times.havdalah?.dateValue.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? String(localized: "not_available")
             )
 
             Divider().overlay(.white.opacity(0.18))
 
             DetailRow(
                 icon: "calendar",
-                title: "Hebrew Date",
-                value: times.hebrewDate ?? "Not available"
+                title: String(localized: "hebrew_date"),
+                value: times.hebrewDate ?? String(localized: "not_available")
             )
 
             Divider().overlay(.white.opacity(0.18))
 
             DetailRow(
                 icon: "location.north.line.fill",
-                title: "Coordinates",
+                title: String(localized: "coordinates"),
                 value: DisplayFormatters.shortCoordinate(latitude: location.latitude, longitude: location.longitude)
             )
         }

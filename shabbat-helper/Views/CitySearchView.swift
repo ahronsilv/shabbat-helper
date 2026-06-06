@@ -19,14 +19,14 @@ struct CitySearchView: View {
                 case .idle:
                     SearchHintRow(
                         systemImage: "magnifyingglass",
-                        title: "Search for a City",
-                        message: "Enter a city name, then select a result to preview candle-lighting times."
+                        title: String(localized: "search_for_city_title"),
+                        message: String(localized: "search_hint_message")
                     )
                     .listRowBackground(Color.clear)
                 case .loading:
                     HStack(spacing: 12) {
                         ProgressView()
-                        Text("Searching cities…")
+                        Text("searching_cities")
                             .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 16)
@@ -42,23 +42,23 @@ struct CitySearchView: View {
                 case .noResults:
                     SearchHintRow(
                         systemImage: "mappin.slash",
-                        title: "No Results",
-                        message: "Try a nearby city, add a country, or check the spelling."
+                        title: String(localized: "no_results"),
+                        message: String(localized: "no_results_message")
                     )
                     .listRowBackground(Color.clear)
                 case .error(let message):
                     SearchHintRow(
                         systemImage: "exclamationmark.triangle",
-                        title: "Search Failed",
+                        title: String(localized: "search_failed"),
                         message: message
                     )
                     .listRowBackground(Color.clear)
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("Add City")
+            .navigationTitle("add_city")
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always), prompt: "City or address")
+            .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always), prompt: "city_or_address")
             .searchFocused($isSearchFocused)
             .onChange(of: viewModel.query) { _, _ in
                 viewModel.scheduleSearch()
@@ -68,7 +68,7 @@ struct CitySearchView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("cancel") {
                         dismiss()
                     }
                 }
@@ -94,7 +94,7 @@ struct CitySearchView: View {
     @ViewBuilder
     private var addressSuggestionsSection: some View {
         if !viewModel.addressSuggestions.isEmpty {
-            Section("Suggestions") {
+            Section("suggestions") {
                 ForEach(viewModel.addressSuggestions) { suggestion in
                     Button {
                         path.append(suggestion.location)
@@ -147,13 +147,13 @@ private struct CityResultRow: View {
             Spacer(minLength: 12)
 
             if isAlreadySaved {
-                Label("Already added", systemImage: "checkmark.circle.fill")
+                Label("already_added", systemImage: "checkmark.circle.fill")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
                     .labelStyle(.iconOnly)
-                    .accessibilityLabel("Already added")
+                    .accessibilityLabel("already_added")
             } else {
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.forward")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.tertiary)
                     .accessibilityHidden(true)
@@ -170,7 +170,7 @@ private struct AddressSuggestionRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            Image(systemName: suggestion.label == "Home" ? "house.fill" : "briefcase.fill")
+            Image(systemName: suggestion.label == String(localized: "home_suggestion_label") ? "house.fill" : "briefcase.fill")
                 .font(.title3.weight(.semibold))
                 .frame(width: 28)
                 .foregroundStyle(.blue)
@@ -188,13 +188,13 @@ private struct AddressSuggestionRow: View {
             Spacer(minLength: 12)
 
             if isAlreadySaved {
-                Label("Already added", systemImage: "checkmark.circle.fill")
+                Label("already_added", systemImage: "checkmark.circle.fill")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
                     .labelStyle(.iconOnly)
-                    .accessibilityLabel("Already added")
+                    .accessibilityLabel("already_added")
             } else {
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.forward")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.tertiary)
                     .accessibilityHidden(true)
@@ -270,7 +270,7 @@ private struct CityPreviewView: View {
                     Image(systemName: "xmark.circle.fill")
                         .font(.title3)
                 }
-                .accessibilityLabel("Close city preview")
+                .accessibilityLabel("close_city_preview")
             }
 
             ToolbarItem(placement: .confirmationAction) {
@@ -288,7 +288,7 @@ private struct CityPreviewView: View {
                         }
                     }
                     .disabled(isAdding)
-                    .accessibilityLabel("Add city")
+                    .accessibilityLabel("add_city")
                 }
             }
         }
@@ -313,19 +313,19 @@ private struct CityPreviewView: View {
         case .locationDenied:
             PreviewMessageCard(
                 systemImage: "location.slash",
-                title: "Location Access Is Off",
-                message: "This city can still be previewed from search, but current-location access is unavailable."
+                title: String(localized: "location_access_is_off"),
+                message: String(localized: "preview_location_denied_message")
             )
         case .empty:
             PreviewMessageCard(
                 systemImage: "calendar.badge.exclamationmark",
-                title: "No Candle Lighting Found",
-                message: "Try another nearby city or refresh in a moment."
+                title: String(localized: "no_candle_lighting_found"),
+                message: String(localized: "preview_no_candle_lighting_message")
             )
         case .error(let message, _):
             PreviewMessageCard(
                 systemImage: "wifi.exclamationmark",
-                title: "Couldn’t Update Times",
+                title: String(localized: "could_not_update_times"),
                 message: message
             )
         }
@@ -373,18 +373,18 @@ private struct PreviewCandleCard: View {
         let candleDate = times.candleLighting.dateValue
 
         VStack(alignment: .leading, spacing: 14) {
-            Label("Candle Lighting", systemImage: "flame.fill")
+            Label("candle_lighting", systemImage: "flame.fill")
                 .font(.headline.weight(.semibold))
                 .foregroundStyle(.secondary)
 
-            Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? "Time unavailable")
+            Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? String(localized: "time_unavailable"))
                 .font(.system(size: 58, weight: .thin, design: .rounded))
                 .foregroundStyle(.primary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.55)
                 .monospacedDigit()
 
-            Text(candleDate.map { DisplayFormatters.day($0, timeZone: times.timeZone) } ?? "Date unavailable")
+            Text(candleDate.map { DisplayFormatters.day($0, timeZone: times.timeZone) } ?? String(localized: "date_unavailable"))
                 .font(.title3.weight(.semibold))
                 .foregroundStyle(.secondary)
         }
@@ -403,7 +403,7 @@ private struct PreviewDetailsCard: View {
         VStack(spacing: 0) {
             PreviewDetailRow(
                 icon: "mappin.and.ellipse",
-                title: "Region",
+                title: String(localized: "region"),
                 value: times.locationDetail
             )
 
@@ -411,23 +411,23 @@ private struct PreviewDetailsCard: View {
 
             PreviewDetailRow(
                 icon: "sparkles",
-                title: "Havdalah",
-                value: times.havdalah?.dateValue.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? "Not available"
+                title: String(localized: "havdalah"),
+                value: times.havdalah?.dateValue.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? String(localized: "not_available")
             )
 
             Divider()
 
             PreviewDetailRow(
                 icon: "book.closed.fill",
-                title: "Parsha",
-                value: times.parsha?.title.replacingOccurrences(of: "Parashat ", with: "") ?? times.candleLighting.memo ?? "Not available"
+                title: String(localized: "parsha"),
+                value: times.parsha?.displayTitle ?? times.candleLighting.memo ?? String(localized: "not_available")
             )
 
             Divider()
 
             PreviewDetailRow(
                 icon: "location.north.line.fill",
-                title: "Coordinates",
+                title: String(localized: "coordinates"),
                 value: DisplayFormatters.shortCoordinate(latitude: location.latitude, longitude: location.longitude)
             )
         }
@@ -470,7 +470,7 @@ private struct PreviewLoadingCard: View {
     var body: some View {
         VStack(spacing: 16) {
             ProgressView()
-            Text("Fetching Candle Lighting")
+            Text("fetching_candle_lighting")
                 .font(.headline)
                 .foregroundStyle(.secondary)
         }
@@ -507,14 +507,14 @@ private struct PreviewMessageCard: View {
 
 private struct AlreadyAddedNotice: View {
     var body: some View {
-        Label("Already added", systemImage: "checkmark.circle.fill")
+        Label("already_added", systemImage: "checkmark.circle.fill")
             .font(.subheadline.weight(.semibold))
             .foregroundStyle(.secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
             .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .accessibilityLabel("Already added")
+            .accessibilityLabel("already_added")
     }
 }
 

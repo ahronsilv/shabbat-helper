@@ -19,13 +19,13 @@ enum HebcalServiceError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidURL:
-            "The Shabbat times request could not be created."
+            String(localized: "hebcal_error_invalid_url")
         case .invalidResponse:
-            "Hebcal returned an unexpected response."
+            String(localized: "hebcal_error_invalid_response")
         case .requestFailed:
-            "Hebcal could not return Shabbat times for this request."
+            String(localized: "hebcal_error_request_failed")
         case .missingCandleLighting:
-            "No candle-lighting event was found in the Hebcal response."
+            String(localized: "hebcal_error_missing_candle_lighting")
         }
     }
 }
@@ -78,7 +78,7 @@ final class HebcalService: HebcalServicing {
         }
 
         let dateComponents = calendar.dateComponents(in: location.timeZone, from: date)
-        components.queryItems = [
+        var queryItems = [
             URLQueryItem(name: "cfg", value: "json"),
             URLQueryItem(name: "latitude", value: String(format: "%.6f", locale: Locale(identifier: "en_US_POSIX"), location.latitude)),
             URLQueryItem(name: "longitude", value: String(format: "%.6f", locale: Locale(identifier: "en_US_POSIX"), location.longitude)),
@@ -89,6 +89,12 @@ final class HebcalService: HebcalServicing {
             URLQueryItem(name: "gm", value: dateComponents.month.map(String.init)),
             URLQueryItem(name: "gd", value: dateComponents.day.map(String.init))
         ]
+
+        if let hebcalLanguageCode = HebcalLanguageMapper.hebcalLanguageCode() {
+            queryItems.append(URLQueryItem(name: "lg", value: hebcalLanguageCode))
+        }
+
+        components.queryItems = queryItems
 
         guard let url = components.url else {
             throw HebcalServiceError.invalidURL

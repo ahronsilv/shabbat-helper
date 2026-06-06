@@ -149,7 +149,7 @@ final class HomeViewModel: ObservableObject {
             #if DEBUG
             print("Hebcal fetch failed:", error)
             #endif
-            return .error("Couldn’t update")
+            return .error(String(localized: "error_could_not_update_short"))
         }
     }
 }

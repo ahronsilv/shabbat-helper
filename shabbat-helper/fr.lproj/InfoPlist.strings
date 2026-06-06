@@ -1,0 +1,2 @@
+CFBundleDisplayName = "Horaires Chabbat";
+NSLocationWhenInUseUsageDescription = "Horaires Chabbat utilise votre position pour afficher les horaires exacts d'allumage des bougies.";

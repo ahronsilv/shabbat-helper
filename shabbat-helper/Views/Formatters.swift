@@ -24,7 +24,9 @@ enum TimeFormatPreference {
     }
 
     static func toggleTitle(uses24HourTime: Bool) -> String {
-        uses24HourTime ? "Use AM/PM Time" : "Use 24-Hour Time"
+        uses24HourTime
+            ? String(localized: "time_format_use_ampm")
+            : String(localized: "time_format_use_24_hour")
     }
 }
 
@@ -37,8 +39,7 @@ enum DisplayFormatters {
         let formatter = DateFormatter()
         formatter.locale = .autoupdatingCurrent
         formatter.timeZone = timeZone
-        formatter.dateStyle = .none
-        formatter.dateFormat = uses24HourTime ? "HH:mm" : "h:mm a"
+        formatter.setLocalizedDateFormatFromTemplate(uses24HourTime ? "HHmm" : "jmm")
         return formatter.string(from: date)
     }
 
@@ -46,7 +47,7 @@ enum DisplayFormatters {
         let formatter = DateFormatter()
         formatter.locale = .autoupdatingCurrent
         formatter.timeZone = timeZone
-        formatter.dateFormat = "EEEE, MMMM d"
+        formatter.setLocalizedDateFormatFromTemplate("EEEEMMMMd")
         return formatter.string(from: date)
     }
 
@@ -54,13 +55,22 @@ enum DisplayFormatters {
         let formatter = DateFormatter()
         formatter.locale = .autoupdatingCurrent
         formatter.timeZone = timeZone
-        formatter.dateFormat = "EEE, MMM d"
+        formatter.setLocalizedDateFormatFromTemplate("EEEMMMd")
         return formatter.string(from: date)
     }
 
     static func shortCoordinate(latitude: Double, longitude: Double) -> String {
         let latitudeText = abs(latitude).formatted(.number.precision(.fractionLength(2)))
         let longitudeText = abs(longitude).formatted(.number.precision(.fractionLength(2)))
-        return "\(latitudeText)° \(latitude >= 0 ? "N" : "S"), \(longitudeText)° \(longitude >= 0 ? "E" : "W")"
+        let latitudeDirection = String(localized: latitude >= 0 ? "coordinate_north_abbreviation" : "coordinate_south_abbreviation")
+        let longitudeDirection = String(localized: longitude >= 0 ? "coordinate_east_abbreviation" : "coordinate_west_abbreviation")
+
+        return String(
+            format: String(localized: "coordinates_format"),
+            latitudeText,
+            latitudeDirection,
+            longitudeText,
+            longitudeDirection
+        )
     }
 }
