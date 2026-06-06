@@ -18,7 +18,6 @@ struct CitySearchOverlayView: View {
         GeometryReader { proxy in
             let overlayWidth = overlayWidth(in: proxy)
             let searchBarWidth = max(0, searchBarContainerWidth(in: proxy) - 40)
-            let horizontalCorrection = keyboardOverlap > 0 ? -proxy.frame(in: .global).minX : 0
 
             ZStack(alignment: .bottom) {
                 Color.black
@@ -58,7 +57,6 @@ struct CitySearchOverlayView: View {
                 }
             }
             .frame(width: overlayWidth, height: proxy.size.height, alignment: .bottom)
-            .offset(x: horizontalCorrection)
             .clipped()
             .ignoresSafeArea()
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { notification in

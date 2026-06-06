@@ -287,7 +287,7 @@ private struct FavoriteCityCard: View {
     }
 
     private var titleLineLimit: Int {
-        isEditing || dynamicTypeSize.isAccessibilitySize ? 2 : 1
+        isCurrentLocation || isEditing || dynamicTypeSize.isAccessibilitySize ? 2 : 1
     }
 
     init(row: HomeViewModel.LocationRow, isCurrentLocation: Bool, uses24HourTime: Bool) {
@@ -504,20 +504,29 @@ private extension SavedLocation {
 
 private struct WeatherBackground: View {
     var body: some View {
-        Image("background")
-            .resizable()
-            .scaledToFill()
-            .overlay {
-                LinearGradient(
-                    colors: [
-                        .black.opacity(0.34),
-                        .black.opacity(0.16),
-                        .black.opacity(0.42)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
+        GeometryReader { proxy in
+            Image("background")
+                .resizable()
+                .scaledToFill()
+                .frame(
+                    width: proxy.size.width,
+                    height: proxy.size.height,
+                    alignment: .bottomLeading
                 )
-            }
+                .environment(\.layoutDirection, .leftToRight)
+                .clipped()
+                .overlay {
+                    LinearGradient(
+                        colors: [
+                            .black.opacity(0.34),
+                            .black.opacity(0.16),
+                            .black.opacity(0.42)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                }
+        }
     }
 }
 
