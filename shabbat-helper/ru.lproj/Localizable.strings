@@ -15,7 +15,7 @@
 "coordinate_west_abbreviation" = "З";
 "could_not_update_times" = "Не удалось обновить время";
 "current" = "Текущее";
-"current_location" = "Текущее местоположение";
+"current_location" = "Ваша локация";
 "date_unavailable" = "Дата недоступна";
 "done" = "Готово";
 "done_editing" = "Готово";
