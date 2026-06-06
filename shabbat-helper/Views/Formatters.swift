@@ -34,12 +34,13 @@ enum DisplayFormatters {
     static func time(
         _ date: Date,
         timeZone: TimeZone,
+        locale: Locale = .autoupdatingCurrent,
         uses24HourTime: Bool = TimeFormatPreference.storedUses24HourTime()
     ) -> String {
         let formatter = DateFormatter()
-        formatter.locale = .autoupdatingCurrent
+        formatter.locale = locale
         formatter.timeZone = timeZone
-        formatter.setLocalizedDateFormatFromTemplate(uses24HourTime ? "HHmm" : "jmm")
+        formatter.setLocalizedDateFormatFromTemplate(uses24HourTime ? "HHmm" : "hmma")
         return formatter.string(from: date)
     }
 

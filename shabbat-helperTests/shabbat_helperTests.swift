@@ -39,6 +39,34 @@ final class shabbat_helperTests: XCTestCase {
         XCTAssertFalse(TimeFormatPreference.storedUses24HourTime(defaults: defaults))
     }
 
+    func testTimeFormatterForcesTwelveHourTimeInTwentyFourHourLocale() throws {
+        let date = Date(timeIntervalSince1970: 1_715_366_400)
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 0))
+        let text = DisplayFormatters.time(
+            date,
+            timeZone: timeZone,
+            locale: Locale(identifier: "en_GB"),
+            uses24HourTime: false
+        )
+
+        XCTAssertTrue(text.localizedCaseInsensitiveContains("PM"))
+        XCTAssertFalse(text.contains("18:"))
+    }
+
+    func testTimeFormatterForcesTwentyFourHourTimeInTwelveHourLocale() throws {
+        let date = Date(timeIntervalSince1970: 1_715_366_400)
+        let timeZone = try XCTUnwrap(TimeZone(secondsFromGMT: 0))
+        let text = DisplayFormatters.time(
+            date,
+            timeZone: timeZone,
+            locale: Locale(identifier: "en_US"),
+            uses24HourTime: true
+        )
+
+        XCTAssertTrue(text.contains("18:"))
+        XCTAssertFalse(text.localizedCaseInsensitiveContains("PM"))
+    }
+
     func testHebcalLanguageMapperUsesSupportedApiLanguages() {
         XCTAssertEqual(HebcalLanguageMapper.hebcalLanguageCode(for: Locale(identifier: "fr")), "fr")
         XCTAssertEqual(HebcalLanguageMapper.hebcalLanguageCode(for: Locale(identifier: "ru")), "ru")
