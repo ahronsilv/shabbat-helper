@@ -12,7 +12,18 @@ final class CitySearchViewModel: NSObject, ObservableObject {
         case error(String)
     }
 
+    struct AddressSuggestion: Identifiable, Equatable {
+        let id: String
+        let label: String
+        let location: SavedLocation
+
+        var title: String {
+            "\(label) — \(location.name)"
+        }
+    }
+
     @Published var query = ""
+    @Published private(set) var addressSuggestions: [AddressSuggestion] = []
     @Published private(set) var results: [SavedLocation] = []
     @Published private(set) var state: SearchState = .idle
 
@@ -23,12 +34,19 @@ final class CitySearchViewModel: NSObject, ObservableObject {
     private var resolutionTask: Task<Void, Never>?
     private var activeSearches: [MKLocalSearch] = []
     private var activeQuery = ""
+    private var didRequestAddressSuggestions = false
 
     init(completer: MKLocalSearchCompleter = MKLocalSearchCompleter()) {
         self.completer = completer
         super.init()
         completer.delegate = self
         completer.resultTypes = [.address]
+    }
+
+    func loadAddressSuggestionsIfNeeded() {
+        guard !didRequestAddressSuggestions else { return }
+        didRequestAddressSuggestions = true
+        addressSuggestions = []
     }
 
     func scheduleSearch() {

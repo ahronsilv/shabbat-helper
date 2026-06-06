@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct shabbat_helperApp: App {
+    init() {
+        TimeFormatPreference.registerDefaults()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

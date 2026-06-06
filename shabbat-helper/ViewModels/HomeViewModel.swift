@@ -59,7 +59,12 @@ final class HomeViewModel: ObservableObject {
         _ = await (currentLocation, favoriteTimes)
     }
 
-    func addFavorite(_ location: SavedLocation) async {
+    func isFavorite(_ location: SavedLocation) -> Bool {
+        favorites.contains { $0.matchesPlace(location) }
+    }
+
+    @discardableResult
+    func addFavorite(_ location: SavedLocation) async -> Bool {
         let favorite = SavedLocation(
             name: location.name,
             detail: location.detail,
@@ -69,12 +74,13 @@ final class HomeViewModel: ObservableObject {
             isCurrentLocation: false
         )
 
-        guard !favorites.contains(where: { $0.matchesPlace(favorite) }) else { return }
+        guard !isFavorite(favorite) else { return false }
 
         favorites.append(favorite)
         locationStore.saveFavoriteLocations(favorites)
         favoriteRows.append(LocationRow(location: favorite, status: .loading))
         await refreshFavorite(favorite)
+        return true
     }
 
     func deleteFavorites(at offsets: IndexSet) {

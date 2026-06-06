@@ -1,9 +1,15 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.editMode) private var editMode
+    @AppStorage(TimeFormatPreference.uses24HourTimeKey) private var uses24HourTime = TimeFormatPreference.defaultUses24HourTime
     @StateObject private var viewModel = HomeViewModel()
-    @State private var isShowingCitySearch = false
+    @State private var isSearchActive = false
     @State private var hasLoaded = false
+
+    private var isEditingList: Bool {
+        editMode?.wrappedValue.isEditing == true
+    }
 
     var body: some View {
         NavigationStack {
@@ -11,51 +17,104 @@ struct HomeView: View {
                 WeatherBackground()
                     .ignoresSafeArea()
 
-                List {
-                    currentLocationSection
-                    favoritesSection
+                ZStack {
+                    List {
+                        currentLocationSection
+                        favoritesSection
+                    }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
+                    .contentMargins(.top, 54, for: .scrollContent)
+                    .refreshable {
+                        await viewModel.refresh()
+                    }
+                    .allowsHitTesting(!isSearchActive)
+
+                    if isSearchActive {
+                        CitySearchOverlayView(
+                            savedLocations: viewModel.favorites,
+                            onAdd: { location in
+                                await viewModel.addFavorite(location)
+                            },
+                            onDismiss: {
+                                withAnimation(.snappy(duration: 0.24)) {
+                                    isSearchActive = false
+                                }
+                            }
+                        )
+                        .ignoresSafeArea()
+                        .transition(.opacity)
+                    }
                 }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-                .refreshable {
-                    await viewModel.refresh()
-                }
+                .ignoresSafeArea(.keyboard)
             }
             .foregroundStyle(.white)
-//            .navigationTitle("Shabbat Times")
+            .ignoresSafeArea(.keyboard)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if !isSearchActive {
+                    BottomCitySearchBar(
+                        searchAction: {
+                            showCitySearch()
+                        }
+                    )
+                    .padding(.horizontal, 20)
+                    .padding(.top, 8)
+                    .padding(.bottom, 18)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    if !viewModel.favorites.isEmpty {
-                        EditButton()
-                            .foregroundStyle(.white)
+                    if isEditingList {
+                        Button("Done") {
+                            setEditingList(false)
+                        }
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.white)
                     }
                 }
 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        isShowingCitySearch = true
+                    Menu {
+                        if !viewModel.favorites.isEmpty {
+                            Button(isEditingList ? "Done Editing" : "Edit List") {
+                                setEditingList(!isEditingList)
+                            }
+                        }
+
+                        Button(TimeFormatPreference.toggleTitle(uses24HourTime: uses24HourTime)) {
+                            uses24HourTime.toggle()
+                        }
                     } label: {
-                        Image(systemName: "plus")
+                        Image(systemName: "ellipsis.circle")
+                            .font(.title3)
                     }
                     .foregroundStyle(.white)
-                    .accessibilityLabel("Add City")
+                    .accessibilityLabel("More options")
                 }
             }
+            .toolbar(isSearchActive ? .hidden : .visible, for: .navigationBar)
             .navigationDestination(for: SavedLocation.self) { location in
                 ShabbatTimesDetailView(location: location)
             }
         }
+        .ignoresSafeArea(.keyboard)
         .task {
             guard !hasLoaded else { return }
             hasLoaded = true
             await viewModel.load()
         }
-        .sheet(isPresented: $isShowingCitySearch) {
-            CitySearchView { location in
-                Task {
-                    await viewModel.addFavorite(location)
-                }
-            }
+    }
+
+    private func showCitySearch() {
+        withAnimation(.snappy(duration: 0.24)) {
+            isSearchActive = true
+        }
+    }
+
+    private func setEditingList(_ isEditing: Bool) {
+        withAnimation(.snappy(duration: 0.22)) {
+            editMode?.wrappedValue = isEditing ? .active : .inactive
         }
     }
 
@@ -64,7 +123,7 @@ struct HomeView: View {
         Section {
             if let row = viewModel.currentLocationRow {
                 NavigationLink(value: row.location) {
-                    FavoriteCityCard(row: row, isCurrentLocation: true)
+                    FavoriteCityCard(row: row, isCurrentLocation: true, uses24HourTime: uses24HourTime)
                 }
                 .buttonStyle(.plain)
                 .listCardRow()
@@ -73,7 +132,8 @@ struct HomeView: View {
                     title: "Current Location",
                     detail: "Finding your location",
                     status: .loading,
-                    isCurrentLocation: true
+                    isCurrentLocation: true,
+                    uses24HourTime: uses24HourTime
                 )
                 .listCardRow()
             } else if let currentLocationError = viewModel.currentLocationError {
@@ -89,14 +149,12 @@ struct HomeView: View {
     private var favoritesSection: some View {
         Section {
             if viewModel.favoriteRows.isEmpty {
-                EmptyFavoritesCard {
-                    isShowingCitySearch = true
-                }
+                EmptyFavoritesCard()
                 .listCardRow()
             } else {
                 ForEach(viewModel.favoriteRows) { row in
                     NavigationLink(value: row.location) {
-                        FavoriteCityCard(row: row, isCurrentLocation: false)
+                        FavoriteCityCard(row: row, isCurrentLocation: false, uses24HourTime: uses24HourTime)
                     }
                     .buttonStyle(.plain)
                     .listCardRow()
@@ -109,6 +167,7 @@ struct HomeView: View {
 }
 
 private struct ShabbatTimesDetailView: View {
+    @AppStorage(TimeFormatPreference.uses24HourTimeKey) private var uses24HourTime = TimeFormatPreference.defaultUses24HourTime
     @StateObject private var viewModel: ShabbatTimesViewModel
     @State private var hasLoaded = false
 
@@ -144,16 +203,7 @@ private struct ShabbatTimesDetailView: View {
     }
 
     private var detailTitle: String {
-        switch viewModel.state {
-        case .fetchingTimes(let location), .empty(let location):
-            location.name
-        case .loaded(_, let location):
-            location.name
-        case .error(_, let location):
-            location?.name ?? "Shabbat Times"
-        default:
-            "Shabbat Times"
-        }
+        ""
     }
 
     @ViewBuilder
@@ -167,9 +217,9 @@ private struct ShabbatTimesDetailView: View {
             HeaderView(locationName: location.name, detail: location.detail)
             LoadingStateView(title: "Fetching Candle Lighting", systemImage: "flame.fill")
         case .loaded(let times, let savedLocation):
-            HeaderView(locationName: times.locationName, detail: times.locationDetail)
-            CandleLightingCard(times: times)
-            ShabbatDetailsCard(times: times, location: savedLocation)
+            HeaderView(locationName: savedLocation.name, detail: savedLocation.detail)
+            CandleLightingCard(times: times, uses24HourTime: uses24HourTime)
+            ShabbatDetailsCard(times: times, location: savedLocation, uses24HourTime: uses24HourTime)
         case .locationDenied:
             MessageCard(
                 systemImage: "location.slash.fill",
@@ -222,6 +272,7 @@ private struct FavoriteCityCard: View {
     let detail: String
     let status: HomeViewModel.RowStatus
     let isCurrentLocation: Bool
+    let uses24HourTime: Bool
 
     private var isEditing: Bool {
         editMode?.wrappedValue.isEditing == true
@@ -231,18 +282,26 @@ private struct FavoriteCityCard: View {
         isEditing || dynamicTypeSize.isAccessibilitySize ? 2 : 1
     }
 
-    init(row: HomeViewModel.LocationRow, isCurrentLocation: Bool) {
+    init(row: HomeViewModel.LocationRow, isCurrentLocation: Bool, uses24HourTime: Bool) {
         self.title = isCurrentLocation ? "Current Location" : row.location.name
         self.detail = isCurrentLocation ? row.location.nameAndDetail : row.location.detail
         self.status = row.status
         self.isCurrentLocation = isCurrentLocation
+        self.uses24HourTime = uses24HourTime
     }
 
-    init(title: String, detail: String, status: HomeViewModel.RowStatus, isCurrentLocation: Bool) {
+    init(
+        title: String,
+        detail: String,
+        status: HomeViewModel.RowStatus,
+        isCurrentLocation: Bool,
+        uses24HourTime: Bool
+    ) {
         self.title = title
         self.detail = detail
         self.status = status
         self.isCurrentLocation = isCurrentLocation
+        self.uses24HourTime = uses24HourTime
     }
 
     var body: some View {
@@ -302,7 +361,7 @@ private struct FavoriteCityCard: View {
         case .loaded(let times):
             let candleDate = times.candleLighting.dateValue
             VStack(alignment: .trailing, spacing: 5) {
-                Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone) } ?? "--")
+                Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? "--")
                     .font(.title2.weight(.regular))
                     .monospacedDigit()
                     .lineLimit(1)
@@ -370,8 +429,6 @@ private struct CurrentLocationUnavailableCard: View {
 }
 
 private struct EmptyFavoritesCard: View {
-    let addCity: () -> Void
-
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "plus.magnifyingglass")
@@ -382,12 +439,43 @@ private struct EmptyFavoritesCard: View {
                 .font(.subheadline)
                 .foregroundStyle(.white.opacity(0.74))
                 .multilineTextAlignment(.center)
-            PillButton(title: "Add City", systemImage: "plus", action: addCity)
-                .frame(maxWidth: 180)
         }
         .padding(22)
         .frame(maxWidth: .infinity, minHeight: 230)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+    }
+}
+
+private struct BottomCitySearchBar: View {
+    let searchAction: () -> Void
+
+    var body: some View {
+        Button(action: searchAction) {
+            HStack(spacing: 12) {
+                Image(systemName: "magnifyingglass")
+                    .font(.title2.weight(.semibold))
+                    .accessibilityHidden(true)
+
+                Text("Search for a city")
+                    .font(.body.weight(.medium))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.82)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .foregroundStyle(.white.opacity(0.9))
+        .padding(.horizontal, 16)
+        .frame(maxWidth: .infinity, minHeight: 56)
+        .background(Color.black.opacity(0.28), in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .stroke(.white.opacity(0.22), lineWidth: 1)
+        }
+        .shadow(color: .black.opacity(0.16), radius: 14, x: 0, y: 8)
+        .accessibilityLabel("Search for a city")
     }
 }
 
@@ -446,6 +534,7 @@ private struct HeaderView: View {
 
 private struct CandleLightingCard: View {
     let times: ShabbatTimes
+    let uses24HourTime: Bool
 
     var body: some View {
         let candleDate = times.candleLighting.dateValue
@@ -455,7 +544,7 @@ private struct CandleLightingCard: View {
                 .font(.headline.weight(.semibold))
                 .foregroundStyle(.white.opacity(0.82))
 
-            Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone) } ?? "Time unavailable")
+            Text(candleDate.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? "Time unavailable")
                 .font(.system(size: 68, weight: .thin, design: .rounded))
                 .lineLimit(1)
                 .minimumScaleFactor(0.55)
@@ -479,6 +568,7 @@ private struct CandleLightingCard: View {
 private struct ShabbatDetailsCard: View {
     let times: ShabbatTimes
     let location: SavedLocation
+    let uses24HourTime: Bool
 
     var body: some View {
         VStack(spacing: 0) {
@@ -493,7 +583,7 @@ private struct ShabbatDetailsCard: View {
             DetailRow(
                 icon: "sparkles",
                 title: "Havdalah",
-                value: times.havdalah?.dateValue.map { DisplayFormatters.time($0, timeZone: times.timeZone) } ?? "Not available"
+                value: times.havdalah?.dateValue.map { DisplayFormatters.time($0, timeZone: times.timeZone, uses24HourTime: uses24HourTime) } ?? "Not available"
             )
 
             Divider().overlay(.white.opacity(0.18))

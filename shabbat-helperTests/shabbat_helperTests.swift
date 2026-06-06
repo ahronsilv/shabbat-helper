@@ -21,6 +21,24 @@ final class shabbat_helperTests: XCTestCase {
         store = nil
     }
 
+    func testLocaleTimeFormatPreferenceDetectsHourCycle() {
+        XCTAssertFalse(TimeFormatPreference.localePrefers24HourTime(Locale(identifier: "en_US")))
+        XCTAssertTrue(TimeFormatPreference.localePrefers24HourTime(Locale(identifier: "en_GB")))
+    }
+
+    func testStoredTimeFormatPreferenceUsesLocaleDefaultWhenUnset() {
+        XCTAssertEqual(
+            TimeFormatPreference.storedUses24HourTime(defaults: defaults),
+            TimeFormatPreference.defaultUses24HourTime
+        )
+    }
+
+    func testStoredTimeFormatPreferencePreservesSavedChoice() {
+        defaults.set(false, forKey: TimeFormatPreference.uses24HourTimeKey)
+
+        XCTAssertFalse(TimeFormatPreference.storedUses24HourTime(defaults: defaults))
+    }
+
     func testLoadFavoriteLocationsMigratesLegacySelectedLocation() {
         let legacyLocation = SavedLocation(
             name: "Jerusalem",
@@ -105,5 +123,48 @@ final class shabbat_helperTests: XCTestCase {
 
         let favorites = store.loadFavoriteLocations()
         XCTAssertEqual(favorites.map(\.name), ["Jerusalem", "Tel Aviv"])
+    }
+
+    @MainActor
+    func testAddFavoriteRefusesDuplicateCities() async {
+        let viewModel = HomeViewModel(
+            hebcalService: MissingTimesHebcalService(),
+            locationService: DeniedLocationService(),
+            locationStore: store
+        )
+        let jerusalem = SavedLocation(
+            name: "Jerusalem",
+            detail: "Israel",
+            latitude: 31.778,
+            longitude: 35.235,
+            timeZoneIdentifier: "Asia/Jerusalem"
+        )
+        let duplicateJerusalem = SavedLocation(
+            name: "jerusalem",
+            detail: "Jerusalem District, Israel",
+            latitude: 31.779,
+            longitude: 35.234,
+            timeZoneIdentifier: "Asia/Jerusalem"
+        )
+
+        let firstAdd = await viewModel.addFavorite(jerusalem)
+        let secondAdd = await viewModel.addFavorite(duplicateJerusalem)
+
+        XCTAssertTrue(firstAdd)
+        XCTAssertFalse(secondAdd)
+        XCTAssertEqual(viewModel.favorites.map(\.name), ["Jerusalem"])
+    }
+}
+
+private struct MissingTimesHebcalService: HebcalServicing {
+    func fetchUpcomingShabbatTimes(for location: SavedLocation) async throws -> ShabbatTimes {
+        throw HebcalServiceError.missingCandleLighting
+    }
+}
+
+@MainActor
+private struct DeniedLocationService: LocationServicing {
+    func requestCurrentLocation() async throws -> SavedLocation {
+        throw LocationServiceError.denied
     }
 }
